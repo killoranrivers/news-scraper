@@ -1,0 +1,19 @@
+* {
+    box-sizing: border-box;
+}
+
+#header {
+    background: black;
+    color: white;
+    height: 200px;
+}
+
+#scrape-btn {
+    border: 2px solid white;
+    color: white;
+    margin-top: 30px;
+}
+
+.card {
+    width: 90vw;
+}

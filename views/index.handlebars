@@ -1,4 +1,26 @@
- <div class="container border border-dark text-center">
-        <h1>What's the Latest News?</h1>
-        <h3>Trending articles curated just for you!</h3>
+<div class="container-fluid" id="header">
+    <div class="row">
+        <div class="col-xs-12 text-center mx-auto justify-content-center">
+            <h1>What's the News?</h1>
+            <h4>Trending articles scraped just for you!</h4>
+            <a class="btn" id="scrape-btn" href="/scrape">See Latest Articles</a>
+        </div>
     </div>
+</div>
+
+<div class="container">
+    {{#each articles}}
+    <div class="row text-center my-2">
+        <div class="col-xs-12">
+            <div class="card px-5">
+                <div class="card-body px-5">
+                    <h5 class="card-title">{{this.headline}}</h5>
+                    <p class="card-text">{{this.summary}}</p>
+                    <a href="{{this.link}}" class="card-link">Link to Article</a>
+                    <a class="btn" href="/comments">View Comments</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+</div>
