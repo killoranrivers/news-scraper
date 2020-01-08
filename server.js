@@ -39,6 +39,7 @@ app.get('/scrape', function(req, res) {
       
       db.Article.create(scrapedArticle)
         .then(function(newArticle) {
+          console.log(newArticle);
         }) 
         .catch(function(err) {
           console.log(err);
@@ -47,6 +48,40 @@ app.get('/scrape', function(req, res) {
 
     res.redirect('/');
 
+  });
+});
+
+app.get('/articles', function(req, res) {
+  db.Article.find({})
+  .then(function(results) {
+    res.json(results);
+  })
+  .catch(function(err) {
+    res.json(err)
+  });
+});
+
+app.get('/articles/:id', function(req, res) {
+  db.Article.findOne({_id: req.params.id})
+  .populate('comments')
+  .then(function(results) {
+    res.json(results);
+  })
+  .catch(function(err) {
+    res.json(err);
+  });
+});
+
+app.post('/articles/:id', function(req, res) {
+  db.Comment.create(req.body)
+  .then(function(newComment) {
+    return db.Article.findOneAndUpdate({_id: req.params.id}, {$push: {comments: newComment._id}}, {new: true});
+  })
+  .then(function(dbArticle) {
+    res.json(dbArticle);
+  })
+  .catch(function (err) {
+    res.json(err);
   });
 });
 
